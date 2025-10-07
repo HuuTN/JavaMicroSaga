@@ -1,0 +1,7 @@
+com\demo\query\domain\ProductViewRepository.class
+com\demo\query\infrastructure\config\KafkaConsumerConfig.class
+com\demo\query\domain\ProductView.class
+com\demo\query\infrastructure\ProductQueryController.class
+com\demo\query\infrastructure\event\ProductEventHandler.class
+com\demo\query\application\ProductQueryService.class
+com\demo\query\QueryServiceApplication.class

@@ -1,0 +1,4 @@
+com\demo\eventsourcing\domain\StoredEvent.class
+com\demo\eventsourcing\EventSourcingServiceApplication.class
+com\demo\eventsourcing\repository\EventStoreRepository.class
+com\demo\eventsourcing\domain\AggregateSnapshot.class

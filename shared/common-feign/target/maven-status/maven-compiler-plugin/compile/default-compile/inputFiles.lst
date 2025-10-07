@@ -1,0 +1,9 @@
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\config\QueryServiceClientConfiguration.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\client\CommandServiceClient.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\client\QueryServiceClient.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\dto\ProductDto.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\dto\ApiResponse.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\dto\OrderDto.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\config\CommandServiceClientConfiguration.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\config\FeignErrorDecoder.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-feign\src\main\java\com\demo\feign\dto\CommandRequest.java

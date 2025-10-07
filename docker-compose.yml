@@ -1,0 +1,144 @@
+﻿services:
+  # Command Database
+  mysql-command:
+    image: mysql:8.0
+    container_name: mysql-command-day4
+    environment:
+      MYSQL_ROOT_PASSWORD: fpt@123
+      MYSQL_DATABASE: command_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_command_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - day4-network
+
+  # Query Database  
+  mysql-query:
+    image: mysql:8.0
+    container_name: mysql-query-day4
+    environment:
+      MYSQL_ROOT_PASSWORD: fpt@123
+      MYSQL_DATABASE: query_db
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_query_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - day4-network
+
+  # Event Store Database
+  mysql-eventstore:
+    image: mysql:8.0
+    container_name: mysql-eventstore-day4
+    environment:
+      MYSQL_ROOT_PASSWORD: fpt@123
+      MYSQL_DATABASE: eventstore_db
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_eventstore_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - day4-network
+
+  # Projection Database
+  mysql-projection:
+    image: mysql:8.0
+    container_name: mysql-projection-day4
+    environment:
+      MYSQL_ROOT_PASSWORD: fpt@123
+      MYSQL_DATABASE: projection_db
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql_projection_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - day4-network
+
+  # Zookeeper
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper-day4
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - day4-network
+
+  # Kafka
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka-day4
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-day4:29092,EXTERNAL://localhost:9092
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_CREATE_TOPICS: "domain-events:1:1"
+    networks:
+      - day4-network
+
+  # Kafka UI (Modern UI)
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui-day4
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - "9000:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-day4:29092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper-day4:2181
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    networks:
+      - day4-network
+
+  # Redis for caching and distributed locks
+  redis:
+    image: redis:7-alpine
+    container_name: redis-day4
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - day4-network
+
+volumes:
+  mysql_command_data:
+  mysql_query_data:
+  mysql_eventstore_data:
+  mysql_projection_data:
+  redis_data:
+
+networks:
+  day4-network:
+    driver: bridge

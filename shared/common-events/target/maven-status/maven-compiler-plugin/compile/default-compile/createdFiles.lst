@@ -1,0 +1,15 @@
+com\demo\events\OrderCreatedEvent$OrderItem.class
+com\demo\events\OrderCreatedEvent$Builder.class
+com\demo\events\ProductCreatedEvent$Builder.class
+com\demo\events\OrderCreatedEvent.class
+com\demo\events\OrderCompletedEvent.class
+com\demo\events\InventoryReservedEvent$Builder.class
+com\demo\events\PaymentProcessedEvent.class
+com\demo\events\ProductCreatedEvent.class
+com\demo\events\PaymentProcessedEvent$Builder.class
+com\demo\events\InventoryReservedEvent.class
+com\demo\events\ProductUpdatedEvent.class
+com\demo\events\ProductUpdatedEvent$Builder.class
+com\demo\events\DomainEvent.class
+com\demo\events\DomainEvent$Builder.class
+com\demo\events\OrderCompletedEvent$Builder.class

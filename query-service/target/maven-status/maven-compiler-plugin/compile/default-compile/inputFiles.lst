@@ -1,0 +1,7 @@
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\query-service\src\main\java\com\demo\query\domain\ProductViewRepository.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\query-service\src\main\java\com\demo\query\infrastructure\event\ProductEventHandler.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\query-service\src\main\java\com\demo\query\QueryServiceApplication.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\query-service\src\main\java\com\demo\query\infrastructure\config\KafkaConsumerConfig.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\query-service\src\main\java\com\demo\query\application\ProductQueryService.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\query-service\src\main\java\com\demo\query\domain\ProductView.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\query-service\src\main\java\com\demo\query\infrastructure\ProductQueryController.java

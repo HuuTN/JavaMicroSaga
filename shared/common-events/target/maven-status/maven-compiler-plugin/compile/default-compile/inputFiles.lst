@@ -1,0 +1,7 @@
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-events\src\main\java\com\demo\events\DomainEvent.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-events\src\main\java\com\demo\events\ProductCreatedEvent.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-events\src\main\java\com\demo\events\PaymentProcessedEvent.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-events\src\main\java\com\demo\events\InventoryReservedEvent.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-events\src\main\java\com\demo\events\OrderCompletedEvent.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-events\src\main\java\com\demo\events\OrderCreatedEvent.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\shared\common-events\src\main\java\com\demo\events\ProductUpdatedEvent.java

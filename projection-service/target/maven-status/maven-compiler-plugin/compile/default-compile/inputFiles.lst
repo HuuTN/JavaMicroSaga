@@ -1,0 +1,8 @@
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\infrastructure\ProjectionController.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\domain\CategoryProjection.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\application\ProjectionService.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\domain\CategoryProjectionRepository.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\ProjectionServiceApplication.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\domain\ProductProjection.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\application\ProjectionEventHandler.java
+C:\Users\OS\Desktop\JavaMicro\day4-cqrs-event-patterns\projection-service\src\main\java\com\demo\projection\domain\ProductProjectionRepository.java
