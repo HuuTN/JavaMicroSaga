@@ -1,0 +1,10 @@
+com\example\order\service\OrderService.class
+com\example\order\controller\OrderController.class
+com\example\order\repository\OrderItemRepository.class
+com\example\order\entity\Order$OrderStatus.class
+com\example\order\outbox\OutboxEvent.class
+com\example\order\OrderManagementApplication.class
+com\example\order\repository\OrderRepository.class
+com\example\order\entity\OrderItem.class
+com\example\order\entity\Order.class
+com\example\order\outbox\OutboxRepository.class

@@ -5,13 +5,13 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.demo</groupId>
-    <artifactId>day4-cqrs-event-patterns</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>day5-saga-patterns</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>Day 4 - CQRS and Event Patterns</name>
-    <description>CQRS and Event Sourcing implementation with Spring Boot</description>
+    <name>Day 5 - Saga Patterns</name>
+    <description>Saga Pattern implementation with Orchestrator and Choreography patterns</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -31,10 +31,11 @@
     <modules>
         <module>shared/common-events</module>
         <module>shared/common-feign</module>
-        <module>command-service</module>
-        <module>query-service</module>
-        <module>event-sourcing-service</module>
-        <module>projection-service</module>
+        <module>saga-orchestrator-service</module>
+        <module>order-management-service</module>
+        <module>payment-service</module>
+        <module>inventory-service</module>
+        <module>notification-service</module>
     </modules>
 
     <dependencyManagement>
@@ -102,6 +103,19 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+
+        <!-- Redis for Distributed Lock -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Spring State Machine -->
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-starter</artifactId>
+            <version>3.2.0</version>
         </dependency>
 
         <!-- Jackson -->

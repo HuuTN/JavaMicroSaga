@@ -1,0 +1,27 @@
+{
+  "name": "inventory-outbox-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "mysql-inventory",
+    "database.port": "3306",
+    "database.user": "root",
+    "database.password": "fpt@123",
+    "database.server.id": "184056",
+    "topic.prefix": "inventory",
+    "database.server.name": "inventorydb",
+    "database.include.list": "inventory_service_db",
+    "table.include.list": "inventory_service_db.outbox_events",
+    "include.schema.changes": "false",
+    "database.allowPublicKeyRetrieval": "true",
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",
+    "schema.history.internal.kafka.topic": "schema-changes.inventory",
+    "transforms": "unwrap,route",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "false",
+    "transforms.unwrap.add.headers": "op",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "(.*)inventory_service_db.outbox_events(.*)",
+    "transforms.route.replacement": "inventory-events"
+  }
+}

@@ -26,10 +26,10 @@ public interface QueryServiceClient {
      */
     @GetMapping("/api/v1/queries/products")
     ResponseEntity<ApiResponse.PagedResponse<ProductDto>> getProducts(
-        @RequestParam("page") int page,
-        @RequestParam("size") int size,
-        @RequestParam(value = "category", required = false) String category,
-        @RequestParam(value = "name", required = false) String name
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(required = false) String category,
+        @RequestParam(required = false) String name
     );
 
     /**
@@ -44,7 +44,7 @@ public interface QueryServiceClient {
     @GetMapping("/api/v1/queries/products/{productId}/availability")
     ResponseEntity<Map<String, Object>> checkAvailability(
         @PathVariable("productId") String productId,
-        @RequestParam("quantity") int quantity
+        @RequestParam int quantity
     );
 
     /**
@@ -69,7 +69,7 @@ public interface QueryServiceClient {
      * Get low stock products
      */
     @GetMapping("/api/v1/queries/products/low-stock")
-    ResponseEntity<List<ProductDto>> getLowStockProducts(@RequestParam("threshold") int threshold);
+    ResponseEntity<List<ProductDto>> getLowStockProducts(@RequestParam(defaultValue = "10") int threshold);
 
     /**
      * Get product statistics

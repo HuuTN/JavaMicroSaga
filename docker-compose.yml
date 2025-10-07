@@ -1,144 +1,223 @@
-﻿services:
-  # Command Database
-  mysql-command:
-    image: mysql:8.0
-    container_name: mysql-command-day4
-    environment:
-      MYSQL_ROOT_PASSWORD: fpt@123
-      MYSQL_DATABASE: command_db
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql_command_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
-      timeout: 20s
-      retries: 10
-    networks:
-      - day4-network
+version: '3.8'
 
-  # Query Database  
-  mysql-query:
+services:
+  # MySQL Database for Saga Orchestrator
+  mysql-saga-orchestrator:
     image: mysql:8.0
-    container_name: mysql-query-day4
+    container_name: mysql-saga-orchestrator
     environment:
       MYSQL_ROOT_PASSWORD: fpt@123
-      MYSQL_DATABASE: query_db
+      MYSQL_DATABASE: saga_orchestrator_db
     ports:
-      - "3308:3306"
+      - "3027:3306"
     volumes:
-      - mysql_query_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
-      timeout: 20s
-      retries: 10
+      - saga_orchestrator_mysql_data:/var/lib/mysql
     networks:
-      - day4-network
+      - saga-network
 
-  # Event Store Database
-  mysql-eventstore:
+  # MySQL Database for Order Service
+  mysql-order:
     image: mysql:8.0
-    container_name: mysql-eventstore-day4
+    container_name: mysql-order
     environment:
       MYSQL_ROOT_PASSWORD: fpt@123
-      MYSQL_DATABASE: eventstore_db
+      MYSQL_DATABASE: order_service_db
     ports:
-      - "3309:3306"
+      - "3028:3306"
     volumes:
-      - mysql_eventstore_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
-      timeout: 20s
-      retries: 10
+      - order_service_mysql_data:/var/lib/mysql
     networks:
-      - day4-network
+      - saga-network
 
-  # Projection Database
-  mysql-projection:
+  # MySQL Database for Payment Service
+  mysql-payment:
     image: mysql:8.0
-    container_name: mysql-projection-day4
+    container_name: mysql-payment
     environment:
       MYSQL_ROOT_PASSWORD: fpt@123
-      MYSQL_DATABASE: projection_db
+      MYSQL_DATABASE: payment_service_db
     ports:
-      - "3310:3306"
+      - "3029:3306"
     volumes:
-      - mysql_projection_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfpt@123"]
-      timeout: 20s
-      retries: 10
+      - payment_service_mysql_data:/var/lib/mysql
     networks:
-      - day4-network
+      - saga-network
+
+  # MySQL Database for Inventory Service
+  mysql-inventory:
+    image: mysql:8.0
+    container_name: mysql-inventory
+    environment:
+      MYSQL_ROOT_PASSWORD: fpt@123
+      MYSQL_DATABASE: inventory_service_db
+    ports:
+      - "3030:3306"
+    volumes:
+      - inventory_service_mysql_data:/var/lib/mysql
+    networks:
+      - saga-network
+
+  # MySQL Database for Notification Service
+  mysql-notification:
+    image: mysql:8.0
+    container_name: mysql-notification
+    environment:
+      MYSQL_ROOT_PASSWORD: fpt@123
+      MYSQL_DATABASE: notification_service_db
+    ports:
+      - "3031:3306"
+    volumes:
+      - notification_service_mysql_data:/var/lib/mysql
+    networks:
+      - saga-network
 
   # Zookeeper
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper-day4
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: zookeeper-day5
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - "2181:2181"
+      - "2182:2181"
     networks:
-      - day4-network
+      - saga-network
 
   # Kafka
   kafka:
-    image: wurstmeister/kafka:latest
-    container_name: kafka-day4
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka-day5
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"
+      - "9093:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-day4:29092,EXTERNAL://localhost:9092
-      KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_CREATE_TOPICS: "domain-events:1:1"
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 || exit 1"]
+      interval: 15s
+      timeout: 15s
+      retries: 10
+      start_period: 60s
     networks:
-      - day4-network
+      - saga-network
 
-  # Kafka UI (Modern UI)
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    container_name: kafka-ui-day4
-    depends_on:
-      - kafka
-      - zookeeper
-    ports:
-      - "9000:8080"
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-day4:29092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper-day4:2181
-      DYNAMIC_CONFIG_ENABLED: 'true'
-    networks:
-      - day4-network
-
-  # Redis for caching and distributed locks
+  # Redis
   redis:
     image: redis:7-alpine
-    container_name: redis-day4
+    container_name: redis-day5
     ports:
-      - "6379:6379"
-    command: redis-server --appendonly yes
-    volumes:
-      - redis_data:/data
+      - "6381:6379"
     networks:
-      - day4-network
+      - saga-network
 
-volumes:
-  mysql_command_data:
-  mysql_query_data:
-  mysql_eventstore_data:
-  mysql_projection_data:
-  redis_data:
+  # Debezium / Kafka Connect for CDC (captures outbox table changes)
+  connect:
+    image: debezium/connect:2.2
+    container_name: debezium-connect
+    depends_on:
+      kafka:
+        condition: service_healthy
+      zookeeper:
+        condition: service_started
+      mysql-order:
+        condition: service_started
+      mysql-payment:
+        condition: service_started
+      mysql-inventory:
+        condition: service_started
+      mysql-notification:
+        condition: service_started
+    ports:
+      - "8085:8083"
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect-configs
+      OFFSET_STORAGE_TOPIC: connect-offsets
+      STATUS_STORAGE_TOPIC: connect-status
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+      KEY_CONVERTER_SCHEMAS_ENABLE: 'false'
+      VALUE_CONVERTER_SCHEMAS_ENABLE: 'false'
+      VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      PLUGIN_PATH: /kafka/connect
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8083/ || exit 1"]
+      interval: 15s
+      timeout: 15s
+      retries: 10
+      start_period: 90s
+    volumes:
+      - ./docker/connectors:/connectors:ro
+    networks:
+      - saga-network
+
+  # Connector loader - registers connectors after Connect is up
+  connector-loader:
+    image: curlimages/curl:7.88.1
+    container_name: connector-loader
+    depends_on:
+      connect:
+        condition: service_healthy
+    entrypoint: ["/bin/sh"]
+    command:
+      - -c
+      - |
+        echo "Waiting for Debezium Connect to be fully ready..."
+        COUNTER=0
+        MAX_TRIES=60
+        until curl -s http://connect:8083/ | grep -q "version" || [ $$COUNTER -eq $$MAX_TRIES ]; do 
+          echo "Attempt $$COUNTER/$$MAX_TRIES: Debezium not ready yet..."
+          sleep 5
+          COUNTER=$$((COUNTER+1))
+        done
+        
+        if [ $$COUNTER -eq $$MAX_TRIES ]; then
+          echo "ERROR: Debezium Connect did not become ready in time!"
+          exit 1
+        fi
+        
+        echo "Debezium Connect is fully ready! Registering connectors..."
+        sleep 5
+        
+        for connector_file in /connectors/*.json; do
+          if [ -f "$$connector_file" ]; then
+            echo "========================================="
+            echo "Registering connector from: $$connector_file"
+            cat "$$connector_file"
+            echo ""
+            echo "-----------------------------------------"
+            RESPONSE=$$(curl -s -w "\n%{http_code}" -X POST -H "Content-Type: application/json" --data-binary @"$$connector_file" http://connect:8083/connectors)
+            HTTP_CODE=$$(echo "$$RESPONSE" | tail -n1)
+            BODY=$$(echo "$$RESPONSE" | sed '$$d')
+            echo "HTTP Status: $$HTTP_CODE"
+            echo "Response: $$BODY"
+            echo "========================================="
+            sleep 2
+          fi
+        done
+        echo "Done registering all connectors"
+    volumes:
+      - ./docker/connectors:/connectors:ro
+    networks:
+      - saga-network
 
 networks:
-  day4-network:
+  saga-network:
     driver: bridge
+
+volumes:
+  saga_orchestrator_mysql_data:
+  order_service_mysql_data:
+  payment_service_mysql_data:
+  inventory_service_mysql_data:
+  notification_service_mysql_data:

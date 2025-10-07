@@ -1,7 +1,0 @@
-
-R
-java:S1854/"<Remove this useless assignment to local variable "pageable".(¥Ş€Ù
-W
-java:S1854<"<Remove this useless assignment to local variable "products".(ÂˆÌÁøÿÿÿÿ
-i
-java:S6204·"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹

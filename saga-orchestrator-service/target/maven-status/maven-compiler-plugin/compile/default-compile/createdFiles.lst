@@ -1,0 +1,15 @@
+com\example\saga\orchestrator\controller\SagaOrchestratorController.class
+com\example\saga\orchestrator\service\OrderSagaOrchestrator.class
+com\example\saga\orchestrator\model\OrderRequest$OrderItem.class
+com\example\saga\orchestrator\entity\SagaTransaction$SagaStatus.class
+com\example\saga\orchestrator\client\NotificationServiceClient.class
+com\example\saga\orchestrator\client\OrderServiceClient.class
+com\example\saga\orchestrator\model\SagaResponse.class
+com\example\saga\orchestrator\repository\SagaTransactionRepository.class
+com\example\saga\orchestrator\entity\SagaTransaction.class
+com\example\saga\orchestrator\SagaOrchestratorApplication.class
+com\example\saga\orchestrator\model\OrderRequest.class
+com\example\saga\orchestrator\client\InventoryServiceClient.class
+com\example\saga\orchestrator\entity\SagaStep$StepStatus.class
+com\example\saga\orchestrator\client\PaymentServiceClient.class
+com\example\saga\orchestrator\entity\SagaStep.class

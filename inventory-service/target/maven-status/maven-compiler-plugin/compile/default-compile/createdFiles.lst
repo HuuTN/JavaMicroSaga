@@ -1,0 +1,10 @@
+com\example\inventory\service\InventoryService.class
+com\example\inventory\outbox\OutboxEvent.class
+com\example\inventory\controller\InventoryController.class
+com\example\inventory\repository\InventoryRepository.class
+com\example\inventory\entity\InventoryItem.class
+com\example\inventory\outbox\OutboxRepository.class
+com\example\inventory\InventoryServiceApplication.class
+com\example\inventory\entity\Reservation.class
+com\example\inventory\entity\Reservation$ReservationStatus.class
+com\example\inventory\repository\ReservationRepository.class

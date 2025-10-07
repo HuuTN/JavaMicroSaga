@@ -1,8 +1,0 @@
-com\demo\projection\domain\ProductProjectionRepository.class
-com\demo\projection\infrastructure\ProjectionController.class
-com\demo\projection\application\ProjectionService.class
-com\demo\projection\ProjectionServiceApplication.class
-com\demo\projection\domain\CategoryProjection.class
-com\demo\projection\domain\ProductProjection.class
-com\demo\projection\application\ProjectionEventHandler.class
-com\demo\projection\domain\CategoryProjectionRepository.class

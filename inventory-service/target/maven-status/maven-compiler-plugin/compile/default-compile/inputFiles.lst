@@ -1,0 +1,9 @@
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\outbox\OutboxRepository.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\service\InventoryService.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\InventoryServiceApplication.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\repository\InventoryRepository.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\entity\InventoryItem.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\entity\Reservation.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\repository\ReservationRepository.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\outbox\OutboxEvent.java
+C:\Users\OS\Desktop\JavaMicro\day5-saga-patterns\inventory-service\src\main\java\com\example\inventory\controller\InventoryController.java

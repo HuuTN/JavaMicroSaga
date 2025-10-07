@@ -1,0 +1,12 @@
+com\example\notification\service\NotificationService.class
+com\example\notification\entity\Notification$NotificationType.class
+com\example\notification\outbox\OutboxRepository.class
+com\example\notification\NotificationServiceApplication.class
+com\example\notification\repository\NotificationRepository.class
+com\example\notification\outbox\OutboxEvent.class
+com\example\notification\repository\NotificationTemplateRepository.class
+com\example\notification\entity\Notification$NotificationStatus.class
+com\example\notification\entity\Notification$NotificationChannel.class
+com\example\notification\entity\Notification.class
+com\example\notification\controller\NotificationController.class
+com\example\notification\entity\NotificationTemplate.class

@@ -1,0 +1,27 @@
+{
+  "name": "notification-outbox-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "mysql-notification",
+    "database.port": "3306",
+    "database.user": "root",
+    "database.password": "fpt@123",
+    "database.server.id": "184057",
+    "topic.prefix": "notification",
+    "database.server.name": "notificationdb",
+    "database.include.list": "notification_service_db",
+    "table.include.list": "notification_service_db.outbox_events",
+    "include.schema.changes": "false",
+    "database.allowPublicKeyRetrieval": "true",
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",
+    "schema.history.internal.kafka.topic": "schema-changes.notification",
+    "transforms": "unwrap,route",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "false",
+    "transforms.unwrap.add.headers": "op",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "(.*)notification_service_db.outbox_events(.*)",
+    "transforms.route.replacement": "notification-events"
+  }
+}
