@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/command-service/command-service.iml" filepath="$PROJECT_DIR$/command-service/command-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day4-cqrs-event-patterns.iml" filepath="$PROJECT_DIR$/day4-cqrs-event-patterns.iml" />
+      <module fileurl="file://$PROJECT_DIR$/event-sourcing-service/event-sourcing-service.iml" filepath="$PROJECT_DIR$/event-sourcing-service/event-sourcing-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projection-service/projection-service.iml" filepath="$PROJECT_DIR$/projection-service/projection-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/query-service/query-service.iml" filepath="$PROJECT_DIR$/query-service/query-service.iml" />
+    </modules>
+  </component>
+</project>
